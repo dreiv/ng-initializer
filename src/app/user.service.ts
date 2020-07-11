@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { Config } from 'protractor';
 
 export interface UserConfig {
   lang: string;
@@ -10,16 +11,20 @@ export interface UserConfig {
   providedIn: 'root'
 })
 export class UserService {
-  private config: ReplaySubject<UserConfig>;
-  config$: Observable<UserConfig>;
+  private config: BehaviorSubject<UserConfig | null>;
+  config$: Observable<UserConfig | null>;
 
   constructor() {
-    this.config = new ReplaySubject(1);
+    this.config = new BehaviorSubject(null);
 
     this.config$ = this.config.asObservable();
   }
 
   update(config: UserConfig): void {
     this.config.next(config);
+  }
+
+  getConfig(): UserConfig | null {
+    return this.config.getValue();
   }
 }
