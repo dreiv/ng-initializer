@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Config } from 'protractor';
 
 export interface UserConfig {
   lang: string;

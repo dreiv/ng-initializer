@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserConfig, UserService } from './user.service';
 
 @Component({
@@ -6,10 +6,12 @@ import { UserConfig, UserService } from './user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   config: UserConfig | null;
 
-  constructor(private userService: UserService) {
-    this.config = userService.getConfig();
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.config = this.userService.getConfig();
   }
 }
